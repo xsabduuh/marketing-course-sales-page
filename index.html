@@ -25,165 +25,535 @@
 html{scroll-behavior:smooth;color-scheme:dark}
 body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,8,16,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(37,99,235,.15)}
-.nav-logo{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:3px;background:linear-gradient(135deg,var(–blue2),var(–cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-cta{background:var(–blue);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:12px;font-weight:700;font-family:‘Cairo’,sans-serif;cursor:pointer;transition:all .3s}
+/* ─── NAV ─── */
+nav{
+position:fixed;top:0;left:0;right:0;z-index:200;
+padding:16px 24px;
+display:flex;align-items:center;justify-content:space-between;
+background:rgba(5,8,16,0);
+backdrop-filter:blur(0px);
+border-bottom:1px solid transparent;
+transition:all .4s ease;
+}
+nav.scrolled{
+background:rgba(5,8,16,.92);
+backdrop-filter:blur(24px);
+border-bottom-color:rgba(37,99,235,.18);
+padding:10px 24px;
+}
+.nav-logo{
+font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:3px;
+background:linear-gradient(135deg,var(–blue2),var(–cyan));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+transition:font-size .3s;
+}
+nav.scrolled .nav-logo{font-size:19px}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-social{display:flex;gap:8px}
+.nav-social a{
+width:32px;height:32px;border-radius:8px;
+display:flex;align-items:center;justify-content:center;
+background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+font-size:14px;text-decoration:none;color:var(–white);
+transition:all .25s;
+}
+.nav-social a:hover{background:rgba(37,99,235,.2);border-color:rgba(37,99,235,.4);transform:translateY(-2px)}
+.nav-cta{
+background:linear-gradient(135deg,var(–blue),var(–blue2));
+color:#fff;border:none;padding:10px 22px;border-radius:10px;
+font-size:12px;font-weight:700;font-family:‘Cairo’,sans-serif;
+cursor:pointer;transition:all .3s;
+box-shadow:0 4px 16px rgba(37,99,235,.35);
+letter-spacing:.5px;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,99,235,.55)}
 .nav-cta:active{transform:scale(.95)}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 20px 60px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(37,99,235,.15) 0,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(6,182,212,.08) 0,transparent 50%),var(–bg)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(37,99,235,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+/* ─── HERO ─── */
+.hero{
+min-height:100vh;display:flex;flex-direction:column;
+justify-content:center;padding:110px 24px 80px;
+position:relative;overflow:hidden;
+}
+.hero-bg{
+position:absolute;inset:0;
+background:
+radial-gradient(ellipse at 15% 25%,rgba(37,99,235,.18) 0,transparent 52%),
+radial-gradient(ellipse at 85% 75%,rgba(6,182,212,.1) 0,transparent 48%),
+radial-gradient(ellipse at 50% 50%,rgba(37,99,235,.04) 0,transparent 70%),
+var(–bg);
+}
+.hero-grid{
+position:absolute;inset:0;
+background-image:linear-gradient(rgba(37,99,235,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.05) 1px,transparent 1px);
+background-size:44px 44px;pointer-events:none;
+}
+
+/* Floating particles */
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.particle{
+position:absolute;border-radius:50%;
+background:radial-gradient(circle,rgba(59,130,246,.5),transparent 70%);
+animation:floatParticle linear infinite;
+}
+@keyframes floatParticle{
+0%{transform:translateY(0) translateX(0) scale(1);opacity:0}
+10%{opacity:1}
+90%{opacity:.4}
+100%{transform:translateY(-100vh) translateX(40px) scale(.5);opacity:0}
+}
+
 .hero-content{position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);border-radius:99px;padding:6px 16px;font-size:11px;color:var(–blue2);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(–green);animation:pulse2 1.5s infinite}
-@keyframes pulse2{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-.hero-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(44px,13vw,80px);line-height:.95;letter-spacing:2px;margin-bottom:20px}
+.hero-badge{
+display:inline-flex;align-items:center;gap:8px;
+background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.28);
+border-radius:99px;padding:7px 18px;
+font-size:11px;color:var(–blue2);font-weight:700;
+letter-spacing:2px;text-transform:uppercase;margin-bottom:26px;
+animation:fadeUp .6s ease both;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(–green);animation:pulse2 1.4s infinite}
+@keyframes pulse2{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+
+.hero-title{
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(48px,14vw,88px);
+line-height:.93;letter-spacing:2px;margin-bottom:22px;
+animation:fadeUp .7s .1s ease both;
+}
 .hero-title .t1{display:block;color:var(–white)}
 .hero-title .t2{display:block;background:linear-gradient(135deg,var(–blue2),var(–cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-title .t3{display:block;font-size:.45em;letter-spacing:4px;color:var(–gray);-webkit-text-fill-color:var(–gray)}
-.hero-desc{font-size:14px;color:var(–gray);line-height:1.9;max-width:340px;margin-bottom:32px;border-right:3px solid var(–blue);padding-right:16px}
-.hero-stats{display:flex;gap:24px;margin-bottom:32px}
+.hero-title .t3{display:block;font-size:.42em;letter-spacing:5px;color:var(–gray);-webkit-text-fill-color:var(–gray)}
+
+.hero-desc{
+font-size:14px;color:var(–gray);line-height:1.9;
+max-width:360px;margin-bottom:28px;
+border-right:3px solid var(–blue);padding-right:16px;
+animation:fadeUp .7s .2s ease both;
+}
+
+/* Seats progress bar */
+.hero-seats{
+margin-bottom:28px;
+animation:fadeUp .7s .25s ease both;
+}
+.seats-label{display:flex;justify-content:space-between;font-size:11px;margin-bottom:7px}
+.seats-left{color:var(–gold);font-weight:700}
+.seats-total{color:var(–gray)}
+.seats-bar{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+.seats-fill{height:100%;width:68%;background:linear-gradient(90deg,var(–blue),var(–cyan));border-radius:99px;animation:fillBar 1.5s .8s ease both;transform-origin:right}
+@keyframes fillBar{from{width:0}to{width:68%}}
+
+.hero-icons{
+display:flex;gap:16px;margin-bottom:28px;
+animation:fadeUp .7s .3s ease both;
+}
+.hicon{
+display:flex;flex-direction:column;align-items:center;gap:5px;
+background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+border-radius:12px;padding:12px 16px;
+transition:all .3s;
+}
+.hicon:hover{background:rgba(37,99,235,.1);border-color:rgba(37,99,235,.25);transform:translateY(-3px)}
+.hicon-emoji{font-size:20px}
+.hicon-txt{font-size:9px;color:var(–gray);letter-spacing:1px;text-align:center}
+
+.hero-stats{display:flex;gap:28px;margin-bottom:32px;animation:fadeUp .7s .32s ease both}
 .hstat{display:flex;flex-direction:column;gap:3px}
-.hstat-num{font-family:‘Bebas Neue’,sans-serif;font-size:28px;color:var(–gold);letter-spacing:1px}
+.hstat-num{font-family:‘Bebas Neue’,sans-serif;font-size:30px;color:var(–gold);letter-spacing:1px}
 .hstat-lbl{font-size:10px;color:var(–gray);letter-spacing:1px;text-transform:uppercase}
-.hero-btns{display:flex;gap:10px}
-.btn-primary{flex:1;background:linear-gradient(135deg,var(–blue),var(–blue2));color:#fff;border:none;padding:16px;border-radius:12px;font-size:15px;font-weight:700;font-family:‘Cairo’,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(37,99,235,.35);transition:all .3s}
+
+.hero-btns{display:flex;gap:10px;animation:fadeUp .7s .38s ease both}
+.btn-primary{
+flex:1;background:linear-gradient(135deg,var(–blue),var(–blue2));
+color:#fff;border:none;padding:17px;border-radius:13px;
+font-size:15px;font-weight:700;font-family:‘Cairo’,sans-serif;
+cursor:pointer;box-shadow:0 8px 28px rgba(37,99,235,.38);
+transition:all .3s;position:relative;overflow:hidden;
+}
+.btn-primary::after{
+content:’’;position:absolute;inset:0;
+background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+opacity:0;transition:opacity .3s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(37,99,235,.55)}
+.btn-primary:hover::after{opacity:1}
 .btn-primary:active{transform:scale(.97)}
-.btn-secondary{background:transparent;color:var(–white);border:1px solid rgba(255,255,255,.15);padding:16px 20px;border-radius:12px;font-size:14px;font-weight:600;font-family:‘Cairo’,sans-serif;cursor:pointer;transition:all .3s}
+.btn-secondary{
+background:transparent;color:var(–white);
+border:1px solid rgba(255,255,255,.15);
+padding:17px 22px;border-radius:13px;
+font-size:14px;font-weight:600;font-family:‘Cairo’,sans-serif;
+cursor:pointer;transition:all .3s;
+}
+.btn-secondary:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04)}
 .btn-secondary:active{transform:scale(.97)}
 
-/* COUNTDOWN */
-.countdown-sec{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(6,182,212,.05));border:1px solid rgba(37,99,235,.2);border-radius:20px;padding:24px 20px;margin:0 20px 40px;text-align:center}
-.cd-title{font-size:12px;color:var(–gray);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-.cd-sub{font-size:13px;color:var(–gold);font-weight:700;margin-bottom:20px}
-.cd-boxes{display:flex;justify-content:center;gap:12px}
-.cd-box{display:flex;flex-direction:column;align-items:center;gap:4px}
-.cd-num{font-family:‘Bebas Neue’,sans-serif;font-size:40px;color:var(–white);letter-spacing:2px;background:var(–card);border:1px solid var(–border);border-radius:12px;width:72px;height:64px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,99,235,.2)}
-.cd-lbl{font-size:10px;color:var(–gray);letter-spacing:1px;text-transform:uppercase}
-.cd-sep{font-family:‘Bebas Neue’,sans-serif;font-size:32px;color:var(–blue2);opacity:.5;margin-top:10px}
+/* ─── COUNTDOWN ─── */
+.countdown-sec{
+background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(6,182,212,.06));
+border:1px solid rgba(37,99,235,.22);border-radius:22px;
+padding:28px 20px;margin:0 20px 44px;text-align:center;
+}
+.cd-title{font-size:11px;color:var(–gray);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px}
+.cd-sub{font-size:13px;color:var(–gold);font-weight:800;margin-bottom:22px}
+.cd-boxes{display:flex;justify-content:center;gap:10px;flex-wrap:nowrap}
+.cd-box{display:flex;flex-direction:column;align-items:center;gap:5px}
+.cd-num{
+font-family:‘Bebas Neue’,sans-serif;font-size:clamp(32px,9vw,46px);
+color:var(–white);letter-spacing:2px;
+background:var(–card);border:1px solid rgba(37,99,235,.2);
+border-radius:14px;width:clamp(60px,16vw,78px);height:clamp(56px,14vw,70px);
+display:flex;align-items:center;justify-content:center;
+box-shadow:0 4px 20px rgba(37,99,235,.22);
+transition:transform .15s;
+}
+.cd-num.tick{transform:scale(1.06)}
+.cd-lbl{font-size:9px;color:var(–gray);letter-spacing:1.5px;text-transform:uppercase}
+.cd-sep{
+font-family:‘Bebas Neue’,sans-serif;font-size:28px;
+color:var(–blue2);opacity:.5;margin-top:8px;
+}
+.cd-urgent{
+margin-top:18px;font-size:12px;
+color:var(–gold2);font-weight:700;
+display:flex;align-items:center;justify-content:center;gap:6px;
+}
 
-/* WHAT YOU LEARN */
-.section{padding:60px 20px}
+/* ─── SECTIONS ─── */
+.section{padding:64px 24px}
 .sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.sec-line{width:20px;height:2px;background:linear-gradient(90deg,var(–blue),var(–cyan))}
+.sec-line{width:22px;height:2px;background:linear-gradient(90deg,var(–blue),var(–cyan));border-radius:99px}
 .sec-tag{font-size:10px;color:var(–blue2);font-weight:700;letter-spacing:3px;text-transform:uppercase}
-.sec-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(32px,9vw,48px);letter-spacing:2px;line-height:1;margin-bottom:28px}
+.sec-title{
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(34px,9vw,50px);letter-spacing:2px;
+line-height:1;margin-bottom:28px;
+}
 .sec-title span{background:linear-gradient(135deg,var(–blue2),var(–cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
+/* ─── BENEFITS ─── */
 .benefits-grid{display:flex;flex-direction:column;gap:12px}
-.benefit-card{background:var(–card);border:1px solid var(–border);border-radius:16px;padding:18px;display:flex;align-items:center;gap:16px;transition:border-color .3s}
-.benefit-card:hover{border-color:rgba(37,99,235,.3)}
-.benefit-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:rgba(37,99,235,.1)}
-.benefit-info{}
+.benefit-card{
+background:var(–card);border:1px solid var(–border);
+border-radius:17px;padding:18px;
+display:flex;align-items:center;gap:16px;
+transition:all .3s;cursor:default;
+}
+.benefit-card:hover{
+border-color:rgba(37,99,235,.32);
+box-shadow:0 6px 24px rgba(37,99,235,.12);
+transform:translateX(-3px);
+}
+.benefit-ico{
+width:50px;height:50px;border-radius:13px;
+display:flex;align-items:center;justify-content:center;
+font-size:22px;flex-shrink:0;
+background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.12);
+transition:all .3s;
+}
+.benefit-card:hover .benefit-ico{background:rgba(37,99,235,.18);transform:scale(1.08)}
 .benefit-title{font-size:14px;font-weight:700;margin-bottom:3px}
 .benefit-desc{font-size:11px;color:var(–gray);line-height:1.6}
 
-/* CURRICULUM */
-.curriculum-sec{padding:60px 20px;background:var(–dark)}
+/* ─── CURRICULUM ─── */
+.curriculum-sec{padding:64px 24px;background:var(–dark)}
 .week-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.week-item{background:var(–card);border:1px solid var(–border);border-radius:14px;overflow:hidden}
-.week-head{padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer}
-.week-num{font-family:‘Bebas Neue’,sans-serif;font-size:11px;letter-spacing:2px;color:var(–blue2);background:rgba(37,99,235,.1);padding:4px 10px;border-radius:99px;flex-shrink:0}
-.week-title{font-size:14px;font-weight:700;flex:1}
-.week-arrow{color:var(–gray);font-size:14px;transition:transform .3s;flex-shrink:0}
-.week-item.open .week-arrow{transform:rotate(180deg)}
-.week-lessons{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
-.week-item.open .week-lessons{max-height:300px;padding-bottom:16px}
-.lesson-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.week-item{
+background:var(–card);border:1px solid var(–border);
+border-radius:15px;overflow:hidden;transition:border-color .3s;
+}
+.week-item.open{border-color:rgba(37,99,235,.25)}
+.week-head{
+padding:17px 18px;display:flex;align-items:center;
+gap:14px;cursor:pointer;user-select:none;
+}
+.week-head:hover .week-title{color:var(–blue2)}
+.week-num{
+font-family:‘Bebas Neue’,sans-serif;font-size:11px;letter-spacing:2px;
+color:var(–blue2);background:rgba(37,99,235,.12);
+padding:4px 11px;border-radius:99px;flex-shrink:0;
+}
+.week-title{font-size:14px;font-weight:700;flex:1;transition:color .2s}
+.week-arrow{color:var(–gray);font-size:13px;transition:transform .35s;flex-shrink:0}
+.week-item.open .week-arrow{transform:rotate(180deg);color:var(–blue2)}
+.week-lessons{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .42s ease,padding .3s}
+.week-item.open .week-lessons{max-height:400px;padding-bottom:16px}
+.lesson-row{
+display:flex;align-items:center;gap:10px;padding:9px 0;
+border-bottom:1px solid rgba(255,255,255,.04);
+transition:background .2s;
+}
 .lesson-row:last-child{border:none}
-.lesson-ico{font-size:14px;color:var(–blue2)}
+.lesson-ico{font-size:13px;color:var(–blue2);flex-shrink:0}
 .lesson-name{font-size:12px;color:var(–gray);flex:1}
 .lesson-dur{font-size:11px;color:var(–border)}
+.lesson-badge{
+font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;
+background:rgba(245,158,11,.15);color:var(–gold);
+letter-spacing:.5px;flex-shrink:0;
+}
 
-/* PRICE */
-.price-sec{padding:60px 20px;text-align:center}
-.price-card{background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(6,182,212,.06));border:1px solid rgba(37,99,235,.25);border-radius:24px;padding:36px 24px;position:relative;overflow:hidden}
-.price-card::before{content:’’;position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(37,99,235,.15),transparent 70%);border-radius:50%}
-.price-badge{display:inline-block;background:var(–gold);color:var(–bg);font-size:11px;font-weight:900;padding:4px 14px;border-radius:99px;letter-spacing:1px;margin-bottom:20px}
-.price-main{font-family:‘Bebas Neue’,sans-serif;font-size:72px;color:var(–white);letter-spacing:2px;line-height:1}
-.price-currency{font-family:‘Cairo’,sans-serif;font-size:22px;color:var(–gold);vertical-align:super;font-weight:900}
+/* ─── PRICE ─── */
+.price-sec{padding:64px 24px;text-align:center}
+.price-card{
+background:linear-gradient(160deg,rgba(37,99,235,.13),rgba(6,182,212,.06));
+border:1px solid rgba(37,99,235,.28);border-radius:26px;
+padding:38px 26px;position:relative;overflow:hidden;
+}
+.price-card::before{
+content:’’;position:absolute;top:-50px;right:-50px;
+width:140px;height:140px;
+background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%);
+border-radius:50%;
+}
+.price-card::after{
+content:’’;position:absolute;bottom:-40px;left:-40px;
+width:120px;height:120px;
+background:radial-gradient(circle,rgba(6,182,212,.1),transparent 70%);
+border-radius:50%;
+}
+.price-badge{
+display:inline-block;background:var(–gold);color:var(–bg);
+font-size:11px;font-weight:900;padding:5px 16px;
+border-radius:99px;letter-spacing:1px;margin-bottom:22px;
+}
+.price-bestseller{
+display:inline-block;background:rgba(16,185,129,.15);
+color:var(–green);border:1px solid rgba(16,185,129,.3);
+font-size:10px;font-weight:700;padding:4px 12px;
+border-radius:99px;letter-spacing:1px;margin-bottom:12px;
+margin-right:8px;
+}
+.price-main{
+font-family:‘Bebas Neue’,sans-serif;font-size:76px;
+color:var(–white);letter-spacing:2px;line-height:1;
+}
+.price-currency{font-family:‘Cairo’,sans-serif;font-size:24px;color:var(–gold);vertical-align:super;font-weight:900}
 .price-period{font-size:13px;color:var(–gray);margin-bottom:8px}
-.price-old{font-size:16px;color:var(–gray);text-decoration:line-through;margin-bottom:24px}
-.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;text-align:right}
+.price-old{font-size:16px;color:var(–gray);text-decoration:line-through;margin-bottom:26px}
+.price-features{display:flex;flex-direction:column;gap:11px;margin-bottom:30px;text-align:right}
 .pf-item{display:flex;align-items:center;gap:10px;font-size:13px}
-.pf-check{color:var(–green);font-size:16px;flex-shrink:0}
-.btn-enroll{width:100%;background:linear-gradient(135deg,var(–blue),var(–blue2));color:#fff;border:none;padding:18px;border-radius:14px;font-size:17px;font-weight:900;font-family:‘Cairo’,sans-serif;cursor:pointer;box-shadow:0 8px 28px rgba(37,99,235,.4);letter-spacing:1px;transition:all .3s}
+.pf-check{color:var(–green);font-size:17px;flex-shrink:0}
+.btn-enroll{
+width:100%;background:linear-gradient(135deg,var(–blue),var(–blue2));
+color:#fff;border:none;padding:19px;border-radius:15px;
+font-size:17px;font-weight:900;font-family:‘Cairo’,sans-serif;
+cursor:pointer;box-shadow:0 8px 32px rgba(37,99,235,.42);
+letter-spacing:1px;transition:all .3s;position:relative;overflow:hidden;
+}
+.btn-enroll::after{
+content:’’;position:absolute;inset:0;
+background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);
+opacity:0;transition:opacity .3s;
+}
+.btn-enroll:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(37,99,235,.6)}
+.btn-enroll:hover::after{opacity:1}
 .btn-enroll:active{transform:scale(.97)}
-.guarantee{font-size:11px;color:var(–gray);margin-top:12px}
+.guarantee{font-size:11px;color:var(–gray);margin-top:14px}
 
-/* TESTIMONIALS */
-.testimonials-sec{padding:60px 20px;background:var(–dark)}
-.reviews{display:flex;flex-direction:column;gap:14px;margin-top:8px}
-.review{background:var(–card);border:1px solid var(–border);border-radius:16px;padding:20px}
-.review-stars{display:flex;gap:3px;margin-bottom:10px}
-.star{color:var(–gold);font-size:13px}
-.review-text{font-size:13px;color:var(–gray);line-height:1.8;margin-bottom:14px;font-style:italic;border-right:2px solid rgba(37,99,235,.3);padding-right:12px}
-.review-author{display:flex;align-items:center;gap:10px}
-.review-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(–blue),var(–cyan));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;flex-shrink:0}
+/* ─── TESTIMONIALS ─── */
+.testimonials-sec{padding:64px 24px;background:var(–dark)}
+.slider-wrap{position:relative;overflow:hidden;margin-top:8px}
+.slider-track{display:flex;gap:14px;transition:transform .45s cubic-bezier(.25,.46,.45,.94)}
+.review{
+background:var(–card);border:1px solid var(–border);
+border-radius:18px;padding:22px;
+min-width:calc(100% - 0px);flex-shrink:0;
+transition:border-color .3s;
+}
+.review:hover{border-color:rgba(37,99,235,.25)}
+.review-stars{display:flex;gap:3px;margin-bottom:12px}
+.star{color:var(–gold);font-size:15px;filter:drop-shadow(0 0 4px rgba(245,158,11,.5))}
+.review-text{
+font-size:13px;color:var(–gray);line-height:1.85;
+margin-bottom:16px;font-style:italic;
+border-right:2px solid rgba(37,99,235,.3);padding-right:13px;
+}
+.review-author{display:flex;align-items:center;gap:11px}
+.review-avatar{
+width:40px;height:40px;border-radius:50%;
+background:linear-gradient(135deg,var(–blue),var(–cyan));
+display:flex;align-items:center;justify-content:center;
+font-weight:900;font-size:14px;color:#fff;flex-shrink:0;
+box-shadow:0 4px 12px rgba(37,99,235,.3);
+}
 .review-name{font-size:13px;font-weight:700}
 .review-title{font-size:11px;color:var(–gray)}
+.slider-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.dot{
+width:8px;height:8px;border-radius:50%;
+background:var(–border);cursor:pointer;transition:all .3s;
+}
+.dot.active{background:var(–blue2);width:22px;border-radius:99px}
+.slider-btns{display:flex;justify-content:center;gap:10px;margin-top:14px}
+.slbtn{
+width:40px;height:40px;border-radius:50%;
+background:var(–card);border:1px solid var(–border);
+color:var(–white);font-size:14px;cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+transition:all .25s;
+}
+.slbtn:hover{background:rgba(37,99,235,.15);border-color:rgba(37,99,235,.3)}
 
-/* INSTRUCTOR */
-.instructor-sec{padding:60px 20px}
-.instructor-card{background:var(–card);border:1px solid var(–border);border-radius:20px;padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
-.inst-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(–blue),var(–cyan));display:flex;align-items:center;justify-content:center;font-size:32px;border:3px solid rgba(37,99,235,.3)}
-.inst-name{font-size:18px;font-weight:900}
-.inst-role{font-size:12px;color:var(–blue2);letter-spacing:1px;margin-bottom:4px}
-.inst-bio{font-size:13px;color:var(–gray);line-height:1.8}
-.inst-stats{display:flex;gap:20px;padding-top:16px;border-top:1px solid var(–border)}
-.ist{display:flex;flex-direction:column;align-items:center;gap:3px}
-.ist-num{font-family:‘Bebas Neue’,sans-serif;font-size:26px;color:var(–gold)}
+/* ─── INSTRUCTOR ─── */
+.instructor-sec{padding:64px 24px}
+.instructor-card{
+background:var(–card);border:1px solid var(–border);
+border-radius:22px;padding:28px;
+display:flex;flex-direction:column;align-items:center;
+text-align:center;gap:16px;
+}
+.inst-avatar{
+width:88px;height:88px;border-radius:50%;
+background:linear-gradient(135deg,var(–blue),var(–cyan));
+display:flex;align-items:center;justify-content:center;
+font-size:36px;border:3px solid rgba(37,99,235,.35);
+box-shadow:0 8px 28px rgba(37,99,235,.25);
+}
+.inst-name{font-size:19px;font-weight:900}
+.inst-role{font-size:12px;color:var(–blue2);letter-spacing:1.5px;margin-bottom:4px}
+.inst-bio{font-size:13px;color:var(–gray);line-height:1.85}
+.inst-stats{display:flex;gap:24px;padding-top:18px;border-top:1px solid var(–border)}
+.ist{display:flex;flex-direction:column;align-items:center;gap:4px}
+.ist-num{font-family:‘Bebas Neue’,sans-serif;font-size:28px;color:var(–gold)}
 .ist-lbl{font-size:10px;color:var(–gray)}
 
-/* FAQ */
-.faq-sec{padding:60px 20px;background:var(–dark)}
+/* ─── FAQ ─── */
+.faq-sec{padding:64px 24px;background:var(–dark)}
 .faq-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.faq-item{background:var(–card);border:1px solid var(–border);border-radius:14px;overflow:hidden}
-.faq-q{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:13px;font-weight:700;gap:12px}
-.faq-arrow{color:var(–blue2);flex-shrink:0;transition:transform .3s}
-.faq-item.open .faq-arrow{transform:rotate(180deg)}
-.faq-a{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:12px;color:var(–gray);line-height:1.8}
-.faq-item.open .faq-a{max-height:200px;padding-bottom:16px}
+.faq-item{
+background:var(–card);border:1px solid var(–border);
+border-radius:15px;overflow:hidden;transition:border-color .3s;
+}
+.faq-item.open{border-color:rgba(37,99,235,.25)}
+.faq-q{
+padding:17px 18px;display:flex;align-items:center;
+justify-content:space-between;cursor:pointer;
+font-size:13px;font-weight:700;gap:12px;user-select:none;
+}
+.faq-icon{
+width:28px;height:28px;border-radius:8px;
+background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.15);
+display:flex;align-items:center;justify-content:center;
+color:var(–blue2);font-size:16px;font-weight:400;
+flex-shrink:0;transition:all .3s;
+}
+.faq-item.open .faq-icon{background:rgba(37,99,235,.2);content:‘−’;transform:rotate(45deg)}
+.faq-a{
+padding:0 18px;max-height:0;overflow:hidden;
+transition:max-height .4s ease,padding .3s;
+font-size:12px;color:var(–gray);line-height:1.85;
+}
+.faq-item.open .faq-a{max-height:220px;padding-bottom:18px}
 
-/* FOOTER CTA */
-.footer-cta{padding:60px 20px;text-align:center;background:linear-gradient(180deg,var(–bg),var(–dark))}
-.fcta-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(36px,10vw,56px);letter-spacing:2px;margin-bottom:12px;line-height:1}
-.fcta-sub{font-size:14px;color:var(–gray);margin-bottom:28px}
+/* ─── FOOTER CTA ─── */
+.footer-cta{
+padding:70px 24px;text-align:center;
+background:linear-gradient(180deg,var(–bg),var(–dark));
+position:relative;overflow:hidden;
+}
+.footer-cta::before{
+content:’’;position:absolute;top:50%;left:50%;
+transform:translate(-50%,-50%);
+width:300px;height:300px;
+background:radial-gradient(circle,rgba(37,99,235,.08),transparent 70%);
+border-radius:50%;pointer-events:none;
+}
+.fcta-title{
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(38px,10vw,60px);letter-spacing:2px;
+margin-bottom:12px;line-height:1;position:relative;
+}
+.fcta-sub{font-size:14px;color:var(–gray);margin-bottom:30px}
 
-footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
-.foot-logo{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:3px;background:linear-gradient(135deg,var(–blue2),var(–cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+/* ─── FOOTER ─── */
+footer{
+padding:26px 24px;border-top:1px solid var(–border);
+text-align:center;
+}
+.foot-logo{
+font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:3px;
+background:linear-gradient(135deg,var(–blue2),var(–cyan));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+margin-bottom:10px;
+}
+.foot-links{display:flex;justify-content:center;gap:16px;margin-bottom:10px}
+.foot-links a{
+width:36px;height:36px;border-radius:10px;
+display:flex;align-items:center;justify-content:center;
+background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
+font-size:16px;text-decoration:none;color:var(–white);
+transition:all .25s;
+}
+.foot-links a:hover{background:rgba(37,99,235,.18);border-color:rgba(37,99,235,.35);transform:translateY(-2px)}
 .foot-copy{font-size:11px;color:var(–gray)}
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{opacity:0;transform:translateY(20px);transition:all .6s ease}
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
 
-/* STICKY CTA */
-.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:rgba(10,14,26,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(37,99,235,.2);padding:14px 20px;z-index:99;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sticky-price{font-family:‘Bebas Neue’,sans-serif;font-size:24px;color:var(–gold);letter-spacing:1px}
+/* ─── STICKY CTA ─── */
+.sticky-cta{
+position:fixed;bottom:0;left:0;right:0;
+background:rgba(10,14,26,.96);backdrop-filter:blur(24px);
+border-top:1px solid rgba(37,99,235,.22);
+padding:14px 20px;z-index:199;
+display:flex;align-items:center;justify-content:space-between;gap:12px;
+transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+}
+.sticky-cta.show{transform:translateY(0)}
+.sticky-price{font-family:‘Bebas Neue’,sans-serif;font-size:26px;color:var(–gold);letter-spacing:1px}
 .sticky-sub{font-size:10px;color:var(–gray)}
-.sticky-btn{background:linear-gradient(135deg,var(–blue),var(–blue2));color:#fff;border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;font-family:‘Cairo’,sans-serif;cursor:pointer;white-space:nowrap}
+.sticky-btn{
+background:linear-gradient(135deg,var(–blue),var(–blue2));
+color:#fff;border:none;padding:13px 26px;border-radius:11px;
+font-size:14px;font-weight:700;font-family:‘Cairo’,sans-serif;
+cursor:pointer;white-space:nowrap;
+box-shadow:0 4px 16px rgba(37,99,235,.4);
+transition:all .25s;
+}
+.sticky-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,99,235,.55)}
 .sticky-btn:active{transform:scale(.96)}
+
+/* ─── INLINE SIGNUP FORM ─── */
+.inline-form{
+display:flex;flex-direction:column;gap:10px;
+margin-top:22px;
+}
+.inline-form input{
+background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+border-radius:11px;padding:14px 16px;
+font-size:14px;color:var(–white);font-family:‘Cairo’,sans-serif;
+width:100%;outline:none;transition:border-color .3s;
+}
+.inline-form input::placeholder{color:var(–gray)}
+.inline-form input:focus{border-color:rgba(37,99,235,.4)}
 </style>
 
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ═══ NAV ═══ -->
 
-<nav>
+<nav id="navbar">
   <div class="nav-logo">MARKETER PRO</div>
-  <button class="nav-cta" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">سجل الآن</button>
+  <div class="nav-right">
+    <div class="nav-social">
+      <a href="https://wa.me/212600000000" target="_blank" title="واتساب">💬</a>
+      <a href="#" target="_blank" title="انستغرام">📸</a>
+    </div>
+    <button class="nav-cta" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">سجل الآن</button>
+  </div>
 </nav>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <div class="particles" id="particles"></div>
   <div class="hero-content">
     <div class="hero-badge"><div class="live-dot"></div>التسجيل مفتوح — أماكن محدودة</div>
     <h1 class="hero-title">
@@ -192,19 +562,38 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
       <span class="t3">◆ من الصفر للاحتراف ◆</span>
     </h1>
     <p class="hero-desc">في 30 يوماً فقط ستتعلم كل ما تحتاجه لتسويق أي منتج أو خدمة على الإنترنت وتبدأ تجني أول دخل رقمي لك.</p>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-num">+500</div><div class="hstat-lbl">طالب ناجح</div></div>
-      <div class="hstat"><div class="hstat-num">30</div><div class="hstat-lbl">يوم مكثف</div></div>
-      <div class="hstat"><div class="hstat-num">4.9★</div><div class="hstat-lbl">تقييم الطلاب</div></div>
-    </div>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">◈ سجل الآن — 297 درهم</button>
-      <button class="btn-secondary" onclick="document.getElementById('curriculum').scrollIntoView({behavior:'smooth'})">المحتوى</button>
-    </div>
+
+```
+<div class="hero-seats">
+  <div class="seats-label">
+    <span class="seats-left">⚡ 34 مقعد فقط متبقي</span>
+    <span class="seats-total">من 100</span>
+  </div>
+  <div class="seats-bar"><div class="seats-fill"></div></div>
+</div>
+
+<div class="hero-icons">
+  <div class="hicon"><div class="hicon-emoji">💻</div><div class="hicon-txt">إعلانات<br>رقمية</div></div>
+  <div class="hicon"><div class="hicon-emoji">📱</div><div class="hicon-txt">سوشيال<br>ميديا</div></div>
+  <div class="hicon"><div class="hicon-emoji">🎯</div><div class="hicon-txt">استهداف<br>دقيق</div></div>
+  <div class="hicon"><div class="hicon-emoji">🤖</div><div class="hicon-txt">ذكاء<br>اصطناعي</div></div>
+</div>
+
+<div class="hero-stats">
+  <div class="hstat"><div class="hstat-num">+500</div><div class="hstat-lbl">طالب ناجح</div></div>
+  <div class="hstat"><div class="hstat-num">30</div><div class="hstat-lbl">يوم مكثف</div></div>
+  <div class="hstat"><div class="hstat-num">4.9★</div><div class="hstat-lbl">تقييم الطلاب</div></div>
+</div>
+<div class="hero-btns">
+  <button class="btn-primary" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">◈ سجل الآن — 297 درهم</button>
+  <button class="btn-secondary" onclick="document.getElementById('curriculum').scrollIntoView({behavior:'smooth'})">المحتوى</button>
+</div>
+```
+
   </div>
 </section>
 
-<!-- COUNTDOWN -->
+<!-- ═══ COUNTDOWN ═══ -->
 
 <div class="countdown-sec fade-in">
   <div class="cd-title">◆ ينتهي العرض خلال</div>
@@ -218,9 +607,10 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
     <div class="cd-sep">:</div>
     <div class="cd-box"><div class="cd-num" id="cdS">00</div><div class="cd-lbl">ثانية</div></div>
   </div>
+  <div class="cd-urgent">⚡ الفرصة تنتهي قريباً — لا تفوتها!</div>
 </div>
 
-<!-- BENEFITS -->
+<!-- ═══ BENEFITS ═══ -->
 
 <section class="section fade-in">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-tag">✦ ماذا ستتعلم</div></div>
@@ -235,7 +625,7 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
   </div>
 </section>
 
-<!-- CURRICULUM -->
+<!-- ═══ CURRICULUM ═══ -->
 
 <section class="curriculum-sec fade-in" id="curriculum">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-tag">◈ محتوى الدورة</div></div>
@@ -250,7 +640,7 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
     <span class="week-arrow">▼</span>
   </div>
   <div class="week-lessons">
-    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">ما هو التسويق الرقمي ولماذا الآن؟</span><span class="lesson-dur">15د</span></div>
+    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">ما هو التسويق الرقمي ولماذا الآن؟</span><span class="lesson-badge">مميز</span><span class="lesson-dur">15د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">فهم سلوك المستهلك الرقمي</span><span class="lesson-dur">20د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">بناء استراتيجية تسويقية كاملة</span><span class="lesson-dur">25د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">تحديد الجمهور المستهدف</span><span class="lesson-dur">18د</span></div>
@@ -264,7 +654,7 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
     <span class="week-arrow">▼</span>
   </div>
   <div class="week-lessons">
-    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">إعداد Business Manager من الصفر</span><span class="lesson-dur">22د</span></div>
+    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">إعداد Business Manager من الصفر</span><span class="lesson-badge">مميز</span><span class="lesson-dur">22د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">أنواع الحملات وأهدافها</span><span class="lesson-dur">30د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">كتابة إعلانات تجذب الانتباه</span><span class="lesson-dur">25د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">تحليل نتائج الحملات</span><span class="lesson-dur">20د</span></div>
@@ -279,7 +669,7 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
   </div>
   <div class="week-lessons">
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">استراتيجية المحتوى الرابحة</span><span class="lesson-dur">28د</span></div>
-    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">إنشاء ريلز وتيك توك يحقق انتشاراً</span><span class="lesson-dur">35د</span></div>
+    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">إنشاء ريلز وتيك توك يحقق انتشاراً</span><span class="lesson-badge">مميز</span><span class="lesson-dur">35د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">جدولة المحتوى وإدارة الصفحات</span><span class="lesson-dur">20د</span></div>
   </div>
 </div>
@@ -291,7 +681,7 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
     <span class="week-arrow">▼</span>
   </div>
   <div class="week-lessons">
-    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">كيف تجد أول زبون في 7 أيام</span><span class="lesson-dur">30د</span></div>
+    <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">كيف تجد أول زبون في 7 أيام</span><span class="lesson-badge">مميز</span><span class="lesson-dur">30د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">تسعير خدماتك بثقة</span><span class="lesson-dur">22د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">بناء portfolio احترافي</span><span class="lesson-dur">25د</span></div>
     <div class="lesson-row"><span class="lesson-ico">▶</span><span class="lesson-name">خطة 90 يوم للنجاح</span><span class="lesson-dur">28د</span></div>
@@ -302,13 +692,16 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
   </div>
 </section>
 
-<!-- PRICE -->
+<!-- ═══ PRICE ═══ -->
 
 <section class="price-sec fade-in" id="enroll">
   <div class="sec-eyebrow" style="justify-content:center"><div class="sec-line"></div><div class="sec-tag">◉ سجل الآن</div><div class="sec-line"></div></div>
   <h2 class="sec-title" style="text-align:center">استثمر <span>في نفسك</span></h2>
   <div class="price-card">
-    <div class="price-badge">✦ عرض الإطلاق</div>
+    <div>
+      <span class="price-badge">✦ عرض الإطلاق</span>
+      <span class="price-bestseller">🏆 الأكثر مبيعاً</span>
+    </div>
     <div class="price-main"><span class="price-currency">MAD</span> 297</div>
     <div class="price-old">بدل 497 درهم</div>
     <div class="price-period">دفعة واحدة ◆ وصول مدى الحياة</div>
@@ -325,31 +718,42 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- ═══ TESTIMONIALS ═══ -->
 
 <section class="testimonials-sec fade-in">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-tag">⟡ شهادات الطلاب</div></div>
   <h2 class="sec-title">قالوا <span>عنها</span></h2>
-  <div class="reviews">
-    <div class="review">
-      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-      <p class="review-text">والله أحسن استثمار عملته في حياتي. بعد 3 أسابيع من الدورة حصلت على أول زبون وربحت 800 درهم في أول شهر.</p>
-      <div class="review-author"><div class="review-avatar">ي</div><div><div class="review-name">يوسف المرابط</div><div class="review-title">طالب جامعي — الدار البيضاء</div></div></div>
+  <div class="slider-wrap">
+    <div class="slider-track" id="sliderTrack">
+      <div class="review">
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">والله أحسن استثمار عملته في حياتي. بعد 3 أسابيع من الدورة حصلت على أول زبون وربحت 800 درهم في أول شهر.</p>
+        <div class="review-author"><div class="review-avatar">ي</div><div><div class="review-name">يوسف المرابط</div><div class="review-title">طالب جامعي — الدار البيضاء</div></div></div>
+      </div>
+      <div class="review">
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">كنت خايفة نبدأ بدون خبرة، بعد الدورة صرت أدير صفحات لـ 3 أصحاب محلات وكنربح منها شهرياً بشكل ثابت.</p>
+        <div class="review-author"><div class="review-avatar">س</div><div><div class="review-name">سلمى الإدريسي</div><div class="review-title">مستقلة — مراكش</div></div></div>
+      </div>
+      <div class="review">
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">المحتوى مفصل ومفهوم، المدرب يجاوب على كل الأسئلة. نصح بها 100% لأي واحد يبغي يتعلم التسويق.</p>
+        <div class="review-author"><div class="review-avatar">أ</div><div><div class="review-name">أمين بنعلي</div><div class="review-title">صاحب مشروع — فاس</div></div></div>
+      </div>
     </div>
-    <div class="review">
-      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-      <p class="review-text">كنت خايفة نبدأ بدون خبرة، بعد الدورة صرت أدير صفحات لـ 3 أصحاب محلات وكنربح منها شهرياً بشكل ثابت.</p>
-      <div class="review-author"><div class="review-avatar">س</div><div><div class="review-name">سلمى الإدريسي</div><div class="review-title">مستقلة — مراكش</div></div></div>
-    </div>
-    <div class="review">
-      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-      <p class="review-text">المحتوى مفصل ومفهوم، المدرب يجاوب على كل الأسئلة. نصح بها 100% لأي واحد يبغي يتعلم التسويق.</p>
-      <div class="review-author"><div class="review-avatar">أ</div><div><div class="review-name">أمين بنعلي</div><div class="review-title">صاحب مشروع — فاس</div></div></div>
-    </div>
+  </div>
+  <div class="slider-dots" id="sliderDots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+  </div>
+  <div class="slider-btns">
+    <button class="slbtn" onclick="prevSlide()">→</button>
+    <button class="slbtn" onclick="nextSlide()">←</button>
   </div>
 </section>
 
-<!-- INSTRUCTOR -->
+<!-- ═══ INSTRUCTOR ═══ -->
 
 <section class="instructor-sec fade-in">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-tag">◈ المدرب</div></div>
@@ -369,104 +773,181 @@ footer{padding:24px 20px;border-top:1px solid var(–border);text-align:center}
   </div>
 </section>
 
-<!-- FAQ -->
+<!-- ═══ FAQ ═══ -->
 
 <section class="faq-sec fade-in">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-tag">⊹ أسئلة شائعة</div></div>
   <h2 class="sec-title">أسئلة <span>وأجوبة</span></h2>
   <div class="faq-list">
     <div class="faq-item open" onclick="toggleFaq(this)">
-      <div class="faq-q">هل أحتاج خبرة سابقة؟<span class="faq-arrow">▼</span></div>
+      <div class="faq-q">هل أحتاج خبرة سابقة؟<span class="faq-icon">+</span></div>
       <div class="faq-a">لا، الدورة مصممة للمبتدئين الكاملين. نبدأ من الصفر ونصل للاحتراف خطوة بخطوة.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">كم ساعة يومياً أحتاج؟<span class="faq-arrow">▼</span></div>
+      <div class="faq-q">كم ساعة يومياً أحتاج؟<span class="faq-icon">+</span></div>
       <div class="faq-a">ساعة إلى ساعتين يومياً تكفي. الدروس مسجلة وتشاهدها في أي وقت يناسبك.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">هل يمكنني الوصول من الهاتف؟<span class="faq-arrow">▼</span></div>
+      <div class="faq-q">هل يمكنني الوصول من الهاتف؟<span class="faq-icon">+</span></div>
       <div class="faq-a">نعم بالكامل! كل المحتوى متاح من الهاتف أو الكمبيوتر بدون قيود.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">ما هو ضمان استرداد الأموال؟<span class="faq-arrow">▼</span></div>
+      <div class="faq-q">ما هو ضمان استرداد الأموال؟<span class="faq-icon">+</span></div>
       <div class="faq-a">إذا لم تكن راضياً خلال 7 أيام من الشراء، نرجع لك المبلغ كاملاً بدون أي أسئلة.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">كيف أتواصل مع المدرب؟<span class="faq-arrow">▼</span></div>
+      <div class="faq-q">كيف أتواصل مع المدرب؟<span class="faq-icon">+</span></div>
       <div class="faq-a">عبر مجموعة واتساب الخاصة بالطلاب حيث يجيب المدرب على أسئلتك مباشرة.</div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER CTA -->
+<!-- ═══ FOOTER CTA ═══ -->
 
 <div class="footer-cta fade-in">
   <h2 class="fcta-title">ابدأ رحلتك<br><span style="background:linear-gradient(135deg,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">اليوم</span></h2>
   <p class="fcta-sub">انضم لأكثر من 500 طالب غيروا حياتهم المهنية</p>
-  <button class="btn-enroll" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">✦ سجل الآن — 297 درهم فقط</button>
+
+  <div class="inline-form">
+    <input type="text" placeholder="اسمك الكامل" id="regName">
+    <input type="tel" placeholder="رقم واتساب (مثال: 212600000000)" id="regPhone">
+    <button class="btn-enroll" onclick="handleRegister()">✦ سجل الآن — 297 درهم فقط</button>
+  </div>
 </div>
 
 <footer>
   <div class="foot-logo">MARKETER PRO</div>
+  <div class="foot-links">
+    <a href="https://wa.me/212600000000" target="_blank" title="واتساب">💬</a>
+    <a href="#" target="_blank" title="انستغرام">📸</a>
+    <a href="#" target="_blank" title="تيك توك">🎵</a>
+  </div>
   <div class="foot-copy">◆ 2025 جميع الحقوق محفوظة ◆</div>
 </footer>
 
-<!-- STICKY CTA -->
+<!-- ═══ STICKY CTA ═══ -->
 
-<div class="sticky-cta">
+<div class="sticky-cta" id="stickyCta">
   <div>
     <div class="sticky-price">297 MAD</div>
-    <div class="sticky-sub">◆ عرض محدود</div>
+    <div class="sticky-sub">◆ عرض محدود — أماكن تنتهي</div>
   </div>
   <button class="sticky-btn" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">سجل الآن ←</button>
 </div>
 
 <script>
-// COUNTDOWN - 3 days from now
+// ── PARTICLES ──
+(function(){
+  var c = document.getElementById('particles');
+  for(var i=0;i<18;i++){
+    var p = document.createElement('div');
+    p.className='particle';
+    var size = Math.random()*8+4;
+    p.style.cssText=[
+      'width:'+size+'px',
+      'height:'+size+'px',
+      'left:'+Math.random()*100+'%',
+      'bottom:-20px',
+      'animation-duration:'+(Math.random()*12+8)+'s',
+      'animation-delay:'+(Math.random()*10)+'s',
+    ].join(';');
+    c.appendChild(p);
+  }
+})();
+
+// ── NAV SCROLL ──
+var navbar = document.getElementById('navbar');
+window.addEventListener('scroll',function(){
+  if(window.scrollY>60) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+});
+
+// ── STICKY CTA ──
+var stickyCta = document.getElementById('stickyCta');
+window.addEventListener('scroll',function(){
+  if(window.scrollY>400) stickyCta.classList.add('show');
+  else stickyCta.classList.remove('show');
+});
+
+// ── COUNTDOWN ──
 var end = new Date();
-end.setDate(end.getDate() + 3);
+end.setDate(end.getDate()+3);
 end.setHours(23,59,59,0);
 
 function updateCD(){
-  var now = new Date();
-  var diff = end - now;
-  if(diff <= 0){
-    document.getElementById('cdD').textContent='00';
-    document.getElementById('cdH').textContent='00';
-    document.getElementById('cdM').textContent='00';
-    document.getElementById('cdS').textContent='00';
-    return;
-  }
-  var d = Math.floor(diff/86400000);
-  var h = Math.floor((diff%86400000)/3600000);
-  var m = Math.floor((diff%3600000)/60000);
-  var s = Math.floor((diff%60000)/1000);
-  document.getElementById('cdD').textContent = String(d).padStart(2,'0');
-  document.getElementById('cdH').textContent = String(h).padStart(2,'0');
-  document.getElementById('cdM').textContent = String(m).padStart(2,'0');
-  document.getElementById('cdS').textContent = String(s).padStart(2,'0');
+  var now=new Date(), diff=end-now;
+  var ids=['cdD','cdH','cdM','cdS'];
+  if(diff<=0){ids.forEach(function(id){document.getElementById(id).textContent='00'});return;}
+  var vals=[
+    Math.floor(diff/86400000),
+    Math.floor((diff%86400000)/3600000),
+    Math.floor((diff%3600000)/60000),
+    Math.floor((diff%60000)/1000)
+  ];
+  vals.forEach(function(v,i){
+    var el=document.getElementById(ids[i]);
+    var newVal=String(v).padStart(2,'0');
+    if(el.textContent!==newVal){
+      el.textContent=newVal;
+      el.classList.add('tick');
+      setTimeout(function(){el.classList.remove('tick')},150);
+    }
+  });
 }
 updateCD();
-setInterval(updateCD, 1000);
+setInterval(updateCD,1000);
 
-// ACCORDION
+// ── ACCORDION ──
 function toggleWeek(el){
-  var isOpen = el.classList.contains('open');
-  document.querySelectorAll('.week-item').forEach(function(i){i.classList.remove('open');});
+  var isOpen=el.classList.contains('open');
+  document.querySelectorAll('.week-item').forEach(function(i){i.classList.remove('open')});
   if(!isOpen) el.classList.add('open');
 }
-
 function toggleFaq(el){
   el.classList.toggle('open');
 }
 
-// SCROLL ANIMATIONS
-var obs = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting) e.target.classList.add('visible');
-  });
-},{threshold:0.1});
-document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
+// ── SLIDER ──
+var slide=0, total=3;
+function goSlide(n){
+  slide=n;
+  document.getElementById('sliderTrack').style.transform='translateX('+(-n*100*(document.querySelector('.review').offsetWidth/document.querySelector('.slider-wrap').offsetWidth))+'%)';
+  document.getElementById('sliderTrack').style.transform='translateX('+(n*100)+'%)';
+  // simple approach
+  var track=document.getElementById('sliderTrack');
+  var w=document.querySelector('.slider-wrap').offsetWidth;
+  track.style.transform='translateX('+(n*w)+'px)';
+  document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('active',i===n)});
+}
+function nextSlide(){slide=(slide+1)%total;goSlide(slide)}
+function prevSlide(){slide=(slide-1+total)%total;goSlide(slide)}
+
+// Auto-slide
+setInterval(nextSlide, 5000);
+
+// Touch swipe
+var startX=0;
+var track=document.getElementById('sliderTrack');
+track.addEventListener('touchstart',function(e){startX=e.touches[0].clientX},false);
+track.addEventListener('touchend',function(e){
+  var dx=e.changedTouches[0].clientX-startX;
+  if(Math.abs(dx)>40){if(dx>0) prevSlide(); else nextSlide();}
+},false);
+
+// ── SCROLL ANIMATIONS ──
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.08});
+document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el)});
+
+// ── INLINE FORM ──
+function handleRegister(){
+  var name=document.getElementById('regName').value.trim();
+  var phone=document.getElementById('regPhone').value.trim();
+  if(!name||!phone){alert('يرجى ملء جميع الحقول');return;}
+  var msg='السلام عليكم، أريد التسجيل في دورة التسويق الرقمي%0aالاسم: '+encodeURIComponent(name)+'%0aالهاتف: '+encodeURIComponent(phone);
+  window.open('https://wa.me/212600000000?text='+msg);
+}
 </script>
 
 </body>

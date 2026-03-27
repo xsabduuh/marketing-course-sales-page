@@ -700,15 +700,13 @@ function doReg(){
   window.open('https://wa.me/212600000000?text='+encodeURIComponent('السلام عليكم أريد التسجيل\nالاسم: '+n+'\nالهاتف: '+p));
 }
 
-<script>
-  // منع المتصفح من استعادة موضع التمرير السابق
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
-  // التمرير إلى أعلى الصفحة عند التحميل الكامل
-  window.addEventListener('load', function() {
-    window.scrollTo(0, 0);
-  });
+/* ── إضافة: منع استعادة موضع التمرير والتمرير للأعلى عند التحميل ── */
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.addEventListener('load', function() {
+  window.scrollTo(0, 0);
+});
 </script>
 
 </body>
